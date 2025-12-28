@@ -18,7 +18,7 @@ export default function Navbar({ onSearch }) {
       <header className="navbar">
         {/* LEFT */}
         <div className="nav-left">
-          <img src="/public/logo/CH.png" alt="Logo" className="nav-logo" />
+          <img src="/logo/CHS.png" alt="Logo" className="nav-logo" />
           <input
             type="text"
             placeholder="🔎 Search.."
