@@ -10,7 +10,7 @@ export default function App() {
 
   // 🔹 Load channels once
   useEffect(() => {
-    fetch("http://localhost:9090/api/channels")
+    fetch("https://tv-streaming-platform-production.up.railway.app/api/channels")
       .then(res => res.json())
       .then(data => {
         const withId = data.map((ch, i) => ({
