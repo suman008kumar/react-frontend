@@ -1,0 +1,11 @@
+.channel-row {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.channel-row::-webkit-scrollbar {
+  height: 6px;
+}

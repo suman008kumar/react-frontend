@@ -1,0 +1,21 @@
+.channel-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius:10px;
+  cursor: pointer;
+}
+
+.channel-card img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.channel-card:hover {
+  background: #1e293b;
+}
+
+.channel-card.active {
+  background: #0f172a;
+}

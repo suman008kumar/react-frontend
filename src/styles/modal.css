@@ -1,0 +1,71 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #0b1020;
+  color: white;
+  border-radius: 18px;
+  padding: 24px;
+  width: 90%;
+  max-width: 480px;
+  animation: pop .25s ease;
+  position: relative;
+}
+
+@keyframes pop {
+  from { transform: scale(.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  cursor: pointer;
+  font-size: 18px;
+}
+/* BACKDROP */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* MODAL BOX */
+.modal-box {
+  background: #0b1020;
+  color: #e5e7eb;
+  width: 90%;
+  max-width: 520px;
+
+  max-height: 65vh;        /* 🔥 popup chhota */
+  overflow-y: auto;        /* 🔥 ANDAR SCROLL */
+
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: sticky;
+  top: 0;
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
+  background: #0b1020;
+}

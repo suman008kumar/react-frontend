@@ -1,0 +1,128 @@
+/* ================= NAVBAR ================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #050b1e, #0b1020);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+
+/* ================= LEFT ================= */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 🔥 LOGO FIX */
+.nav-logo {
+  height: 72px;      /* height control karo, width auto */
+  width: 72px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* SEARCH */
+.nav-left input {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 200px;
+  font-size: 18px;
+}
+
+/* ================= RIGHT (DESKTOP) ================= */
+.nav-right {
+  color: #e5e7eb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-right: 40px;   /* 🔥 yahin se LEFT jayega */
+}
+
+
+.nav-right span {
+  cursor: pointer;
+  font-size: 20px;
+  opacity: 0.85;
+}
+
+.nav-right span:hover {
+  color: cyan;
+  opacity: 1;
+}
+
+/* ================= BURGER ================= */
+.burger {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* ================= MOBILE MENU ================= */
+.mobile-menu {
+  position: fixed;
+  top: 64px;
+  right: 0;                 /* 🔥 no gap */
+  left: 0;
+
+  width: 100%;
+  background: #0b1020;
+
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* 🔥 center */
+
+  transform: translateY(-120%);
+  transition: transform 0.25s ease-in-out;
+  z-index: 999;
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+}
+
+.mobile-menu span {
+  width: 100%;
+  text-align: center;       /* 🔥 center text */
+  padding: 12px;
+  color: white;
+}
+
+.mobile-menu span:hover {
+  background: #1e293b;
+}
+
+
+/* ================= RESPONSIVE ================= */
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .nav-left input {
+    width: 140px;
+  }
+}
