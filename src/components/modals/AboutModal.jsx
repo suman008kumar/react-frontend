@@ -4,29 +4,41 @@ import "../../styles/about.css";
 export default function AboutModal({ onClose }) {
   return (
     <ModalWrapper onClose={onClose}>
+
+      {/* MAIN ABOUT CONTAINER */}
       <div className="about-box">
+
+        {/* OWNER IMAGE */}
         <img
           src="/Aboutimg/Ab.jpeg"
-          className="owner-img"
           alt="Chandra Shekhar"
+          className="owner-img"
         />
 
-        <h2>CHANDRA SHEKHAR</h2>
+        {/* OWNER NAME */}
+        <h2 className="owner-name">CHANDRA SHEKHAR</h2>
 
-        <p>
-          This platform is presented and managed by <strong>Chandra Shekhar</strong>,
-          who represents the vision, concept, and overall direction of the CHANDRA SHEKHAR platform.
+        {/* ROLE / DESCRIPTION */}
+        <p className="about-text">
+          This platform is presented and managed by{" "}
+          <strong>Chandra Shekhar</strong>, who defines the vision,
+          concept, and overall direction of the platform.
         </p>
 
-        <p>
-          The CHANDRA SHEKHAR platform has been <strong>designed and developed by Suman Kumar</strong>,
-          focusing on performance, clean user experience, and TV-first design principles.
+        {/* DEVELOPER INFO */}
+        <p className="about-text">
+          The platform has been <strong>designed and developed by Suman Kumar</strong>,
+          focusing on performance, simplicity, and a TV-first user experience.
         </p>
 
-        <p>
-          <strong>Development & Technology:</strong><br />
-          React.js (Frontend), Java & Spring Boot (Backend), REST-based Architecture
-        </p>
+        {/* TECH STACK */}
+        <div className="tech-stack">
+          <h4>Development & Technology</h4>
+          <p>React.js (Frontend)</p>
+          <p>Java & Spring Boot (Backend)</p>
+          <p>REST-based Architecture</p>
+        </div>
+
       </div>
     </ModalWrapper>
   );
