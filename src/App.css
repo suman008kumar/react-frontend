@@ -98,7 +98,7 @@
 .video-container {
   flex: 1;
   background: black;
-  border-radius: 0px;
+  border-radius: 18px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -215,35 +215,4 @@
   background: #000;
   position: sticky;
   top: 0;
-}
-.app-layout {
-  display: flex;
-  width: 100vw;              /* 🔥 full viewport */
-  height: calc(100vh - 64px);/* navbar height minus */
-  margin-top: 64px;          /* navbar ke niche */
-  background: #050b1e;
-  overflow: hidden;          /* 🔥 stops white strip */
-}
-
-/* VIDEO AREA */
-.video-container {
-  flex: 1;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* RIGHT CHANNEL PANEL */
-.channel-panel {
-  width: 340px;
-  background: #050b1e;
-  border-left: 1px solid rgba(255,255,255,0.08);
-  overflow-y: auto;
-}
-
-/* CHANNEL LIST */
-.channel-list {
-  height: 100%;
-  overflow-y: auto;
 }
