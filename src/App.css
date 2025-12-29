@@ -1,104 +1,20 @@
-/* NAVBAR SPACE */
-.layout {
-  margin-top: 64px;
-  display: flex;
-  height: calc(100vh - 64px);
-}
-
-/* LEFT VIDEO */
-.video-section {
-  flex: 1;
-}
-
-
-/* RIGHT PANEL */
-.channel-section {
-  width: 320px;
-  border-left: 1px solid #1e293b;
-  display: flex;
-  flex-direction: column;
-}
-
-/* SEARCH */
-.channel-search {
-  margin: 12px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-}
-
-/* CHANNEL LIST */
-.channel-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-.channel-search {
-  margin: 8px;
-  padding: 8px 12px;
-}
-
-.channel-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 6px;
-}
-.channel-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;        /* 🔥 bigger */
-  border-radius: 8px;
-}
-
-.channel-item img {
-  width: 46px;          /* 🔥 bigger logo */
-  height: 46px;
-}
-
-.channel-item span {
-  font-size: 14px;      /* 🔥 readable */
-  font-weight: 500;
-  color: #e5e7eb;
-}
-
-
-/* 📱 MOBILE */
-@media (max-width: 768px) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .video-section {
-    height: 240px;
-  }
-
-  .channel-section {
-    width: 100%;
-  }
-
-  .channel-list {
-    max-height: 45vh;
-  }
-}
+/* MAIN LAYOUT */
 .app-layout {
-  margin-top: 64px;
-  margin-left:-9px;
-  height: calc(100vh - 60px);
+  position: fixed;
+  top: 64px;                 /* navbar height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   display: flex;
-
-  padding: 0;
-  gap: 0;
-
-  background: #020617;   /* 🔥 MATCH */
+  background: #020617;
+  overflow: hidden;          /* 🔒 page will NOT move */
 }
-
 
 /* LEFT VIDEO */
 .video-container {
   flex: 1;
-  background: black;
-  border-radius: 18px;
+  background: #000;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -107,112 +23,66 @@
 
 /* RIGHT CHANNEL PANEL */
 .channel-panel {
-  border-left: none;   /* 🔥 REMOVE */
-}
-
-.channel-panel {
-  width: 300px;
+  width: 320px;
   background: #020617;
-
-  margin: 0;                        /* 🔥 ZERO */
-  padding: 0;                       /* 🔥 ZERO */
-  border-radius: 0;                 /* 🔥 ZERO */
-  border-left: 0;                   /* 🔥 REMOVE */
-
+  border-left: 1px solid #1e293b;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-
-  @media (max-width: 768px) {
-    .app-layout {
-      flex-direction: column;
-      padding: 6px;
-    }
-
-    .video-container {
-      flex: 1;
-      background: black;
-
-      margin: 0;                        /* 🔥 ZERO */
-      padding: 0;                       /* 🔥 ZERO */
-      border-radius: 0;                 /* 🔥 ZERO */
-
-      overflow: hidden;
-    }
-
-
-    .channel-panel {
-      width: 100%;
-    }
-    .channel-panel {
-      border-left: none;   /* 🔥 REMOVE */
-    }
-  }
-
-.channel-search {
-  margin: 12px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-
+/* CHANNEL LIST (ONLY SCROLL HERE) */
 .channel-list {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 8px;
 }
 
-/* single channel row */
+/* CHANNEL ITEM */
 .channel-item {
   display: flex;
   align-items: center;
-  background: transparent;   /* force define */
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s;
 }
 
 .channel-item img {
-  width: 46px;          /* 🔥 bigger logo */
+  width: 46px;
   height: 46px;
 }
 
 .channel-item span {
-  font-size: 14px;      /* 🔥 readable */
-  font-weight: 500;
   color: #e5e7eb;
+  font-size: 14px;
 }
 
-
-/* hover */
+/* HOVER */
 .channel-item:hover {
   background: #1e293b;
 }
 
-/* ✅ SELECTED CHANNEL */
-/* SELECTED CHANNEL */
+/* ✅ SELECTED */
 .channel-item.active {
-  background: linear-gradient(
-    90deg,
-    #2563eb33,   /* light blue */
-    #1e40af22
-  );
-  color: #e5e7eb;
-  font-weight: 600;
-  box-shadow: inset 4px 0 0 #2563eb; /* left blue bar */
+  background: linear-gradient(90deg, #2563eb33, #1e40af22);
+  box-shadow: inset 4px 0 0 #2563eb;
 }
 
-/* selected logo thoda glow */
-.channel-item.active img {
-  filter: drop-shadow(0 0 4px red);
-}
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
 
-.video-container {
-  flex: 1;
-  background: #000;
-  position: sticky;
-  top: 0;
+  .video-container {
+    height: 55vh;
+  }
+
+  .channel-panel {
+    width: 100%;
+    height: 45vh;
+  }
 }
