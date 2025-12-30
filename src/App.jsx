@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./components/Navbar";
 import VideoPlayer from "./components/VideoPlayer";
 import "./App.css";
@@ -8,23 +8,24 @@ export default function App() {
   const [filtered, setFiltered] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  // 🔹 Load channels once
+  // 🔥 channel list reference
+  const channelListRef = useRef(null);
+
   useEffect(() => {
-    fetch("https://tv-streaming-platform-production.up.railway.app/api/channels")
+    fetch("http://localhost:9090/api/channels")
       .then(res => res.json())
       .then(data => {
         const withId = data.map((ch, i) => ({
           ...ch,
           _id: i + 1
         }));
-
         setChannels(withId);
         setFiltered(withId);
         setSelected(withId[0]);
       });
   }, []);
 
-  // 🔍 Search = reorder only
+  // 🔍 SEARCH + AUTO SCROLL
   const handleSearch = (query) => {
     const q = query.toLowerCase().trim();
 
@@ -37,28 +38,32 @@ export default function App() {
       ch.name.toLowerCase().includes(q)
     );
 
-    const others = channels.filter(
-      ch => !ch.name.toLowerCase().includes(q)
+    const others = channels.filter(ch =>
+      !ch.name.toLowerCase().includes(q)
     );
 
     setFiltered([...matched, ...others]);
+
+    // 🔥 AUTO SCROLL TO TOP OF CHANNEL LIST
+    requestAnimationFrame(() => {
+      if (channelListRef.current) {
+        channelListRef.current.scrollTop = 0;
+      }
+    });
   };
 
   return (
     <>
-      {/* 🔒 FIXED NAVBAR */}
       <Navbar onSearch={handleSearch} />
 
-      {/* 🔒 STICKY LAYOUT */}
       <div className="app-layout">
-        {/* LEFT: VIDEO */}
         <div className="video-container">
           <VideoPlayer channel={selected} />
         </div>
 
-        {/* RIGHT: CHANNEL LIST */}
         <div className="channel-panel">
-          <div className="channel-list">
+          {/* 🔥 REF HERE */}
+          <div className="channel-list" ref={channelListRef}>
             {filtered.map(ch => (
               <div
                 key={ch._id}
@@ -67,11 +72,7 @@ export default function App() {
                 }`}
                 onClick={() => setSelected(ch)}
               >
-                <img
-                  src={ch.logo}
-                  alt={ch.name}
-                  onError={(e) => (e.target.src = "/no-logo.png")}
-                />
+                <img src={ch.logo} alt={ch.name} />
                 <span>{ch.name}</span>
               </div>
             ))}
