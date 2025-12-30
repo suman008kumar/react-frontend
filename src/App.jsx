@@ -8,7 +8,6 @@ export default function App() {
   const [filtered, setFiltered] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  // 🔥 Channel list ref
   const channelListRef = useRef(null);
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function App() {
       });
   }, []);
 
-  /* 🔍 SEARCH + AUTO SCROLL TOP */
+  /* 🔍 SEARCH + AUTO SCROLL */
   const handleSearch = (query) => {
     const q = query.toLowerCase().trim();
 
@@ -42,13 +41,17 @@ export default function App() {
       setFiltered([...matched, ...others]);
     }
 
-    // ✅ 🔥 AUTO SCROLL TO TOP
-    if (channelListRef.current) {
-      channelListRef.current.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
+    channelListRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePrev = () => {
+    const idx = filtered.findIndex(c => c._id === selected._id);
+    if (idx > 0) setSelected(filtered[idx - 1]);
+  };
+
+  const handleNext = () => {
+    const idx = filtered.findIndex(c => c._id === selected._id);
+    if (idx < filtered.length - 1) setSelected(filtered[idx + 1]);
   };
 
   return (
@@ -57,23 +60,14 @@ export default function App() {
 
       <div className="app-layout">
         <div className="video-container">
-          <VideoPlayer channel={selected} />
+          <VideoPlayer
+            channel={selected}
+            onPrev={handlePrev}
+            onNext={handleNext}
+          />
         </div>
-        <VideoPlayer
-          channel={selected}
-          onPrev={() => {
-            const idx = filtered.findIndex(c => c._id === selected._id);
-            if (idx > 0) setSelected(filtered[idx - 1]);
-          }}
-          onNext={() => {
-            const idx = filtered.findIndex(c => c._id === selected._id);
-            if (idx < filtered.length - 1) setSelected(filtered[idx + 1]);
-          }}
-        />
-
 
         <div className="channel-panel">
-          {/* 🔥 ref yahin lagta hai */}
           <div className="channel-list" ref={channelListRef}>
             {filtered.map(ch => (
               <div
