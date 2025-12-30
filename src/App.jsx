@@ -8,9 +8,11 @@ export default function App() {
   const [filtered, setFiltered] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  // 🔥 channel list reference
+  // 🔥 ADD THIS
   const channelListRef = useRef(null);
 
+
+  // 🔹 Load channels once
   useEffect(() => {
     fetch("http://localhost:9090/api/channels")
       .then(res => res.json())
@@ -19,13 +21,14 @@ export default function App() {
           ...ch,
           _id: i + 1
         }));
+
         setChannels(withId);
         setFiltered(withId);
         setSelected(withId[0]);
       });
   }, []);
 
-  // 🔍 SEARCH + AUTO SCROLL
+  // 🔍 Search = reorder only
   const handleSearch = (query) => {
     const q = query.toLowerCase().trim();
 
@@ -44,26 +47,30 @@ export default function App() {
 
     setFiltered([...matched, ...others]);
 
-    // 🔥 AUTO SCROLL TO TOP OF CHANNEL LIST
+    // ✅ NEW: auto scroll to top of channel list
     requestAnimationFrame(() => {
-      if (channelListRef.current) {
-        channelListRef.current.scrollTop = 0;
-      }
+      channelListRef.current?.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     });
   };
 
   return (
     <>
+      {/* 🔒 FIXED NAVBAR */}
       <Navbar onSearch={handleSearch} />
 
+      {/* 🔒 STICKY LAYOUT */}
       <div className="app-layout">
+        {/* LEFT: VIDEO */}
         <div className="video-container">
           <VideoPlayer channel={selected} />
         </div>
 
+        {/* RIGHT: CHANNEL LIST */}
         <div className="channel-panel">
-          {/* 🔥 REF HERE */}
-          <div className="channel-list" ref={channelListRef}>
+          <div className="channel-list">
             {filtered.map(ch => (
               <div
                 key={ch._id}
@@ -72,7 +79,11 @@ export default function App() {
                 }`}
                 onClick={() => setSelected(ch)}
               >
-                <img src={ch.logo} alt={ch.name} />
+                <img
+                  src={ch.logo}
+                  alt={ch.name}
+                  onError={(e) => (e.target.src = "/no-logo.png")}
+                />
                 <span>{ch.name}</span>
               </div>
             ))}
