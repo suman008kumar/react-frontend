@@ -8,11 +8,9 @@ export default function App() {
   const [filtered, setFiltered] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  // 🔥 ADD THIS
+  // 🔥 Channel list ref
   const channelListRef = useRef(null);
 
-
-  // 🔹 Load channels once
   useEffect(() => {
     fetch("http://localhost:9090/api/channels")
       .then(res => res.json())
@@ -28,49 +26,55 @@ export default function App() {
       });
   }, []);
 
-  // 🔍 Search = reorder only
+  /* 🔍 SEARCH + AUTO SCROLL TOP */
   const handleSearch = (query) => {
     const q = query.toLowerCase().trim();
 
     if (!q) {
       setFiltered([...channels]);
-      return;
+    } else {
+      const matched = channels.filter(ch =>
+        ch.name.toLowerCase().includes(q)
+      );
+      const others = channels.filter(ch =>
+        !ch.name.toLowerCase().includes(q)
+      );
+      setFiltered([...matched, ...others]);
     }
 
-    const matched = channels.filter(ch =>
-      ch.name.toLowerCase().includes(q)
-    );
-
-    const others = channels.filter(ch =>
-      !ch.name.toLowerCase().includes(q)
-    );
-
-    setFiltered([...matched, ...others]);
-
-    // ✅ NEW: auto scroll to top of channel list
-    requestAnimationFrame(() => {
-      channelListRef.current?.scrollTo({
+    // ✅ 🔥 AUTO SCROLL TO TOP
+    if (channelListRef.current) {
+      channelListRef.current.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: "smooth"
       });
-    });
+    }
   };
 
   return (
     <>
-      {/* 🔒 FIXED NAVBAR */}
       <Navbar onSearch={handleSearch} />
 
-      {/* 🔒 STICKY LAYOUT */}
       <div className="app-layout">
-        {/* LEFT: VIDEO */}
         <div className="video-container">
           <VideoPlayer channel={selected} />
         </div>
+        <VideoPlayer
+          channel={selected}
+          onPrev={() => {
+            const idx = filtered.findIndex(c => c._id === selected._id);
+            if (idx > 0) setSelected(filtered[idx - 1]);
+          }}
+          onNext={() => {
+            const idx = filtered.findIndex(c => c._id === selected._id);
+            if (idx < filtered.length - 1) setSelected(filtered[idx + 1]);
+          }}
+        />
 
-        {/* RIGHT: CHANNEL LIST */}
+
         <div className="channel-panel">
-          <div className="channel-list">
+          {/* 🔥 ref yahin lagta hai */}
+          <div className="channel-list" ref={channelListRef}>
             {filtered.map(ch => (
               <div
                 key={ch._id}
@@ -79,11 +83,7 @@ export default function App() {
                 }`}
                 onClick={() => setSelected(ch)}
               >
-                <img
-                  src={ch.logo}
-                  alt={ch.name}
-                  onError={(e) => (e.target.src = "/no-logo.png")}
-                />
+                <img src={ch.logo} alt={ch.name} />
                 <span>{ch.name}</span>
               </div>
             ))}
