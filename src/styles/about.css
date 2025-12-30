@@ -1,88 +1,55 @@
-/* MAIN LAYOUT */
-.app-layout {
-  position: fixed;
-  top: 64px;                 /* navbar height */
-  left: 0;
-  right: 0;
-  bottom: 0;
+.about-box {
+  max-width: 520px;
+  width: 90%;
+  margin: auto;
+  padding: 28px 24px;
 
-  display: flex;
-  background: #020617;
-  overflow: hidden;          /* 🔒 page will NOT move */
-}
-
-/* LEFT VIDEO */
-.video-container {
-  flex: 1;
-  background: #000;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* RIGHT CHANNEL PANEL */
-.channel-panel {
-  width: 320px;
-  background: #020617;
-  border-left: 1px solid #1e293b;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* CHANNEL LIST (ONLY SCROLL HERE) */
-.channel-list {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 8px;
-}
-
-/* CHANNEL ITEM */
-.channel-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.channel-item img {
-  width: 46px;
-  height: 46px;
-}
-
-.channel-item span {
+  border-radius: 16px;
   color: #e5e7eb;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* IMAGE */
+.owner-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  border: 3px solid #38bdf8;
+}
+
+/* NAME */
+.owner-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+/* TEXT */
+.about-text {
   font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: #cbd5f5;
 }
 
-/* HOVER */
-.channel-item:hover {
-  background: #1e293b;
+/* TECH STACK */
+.tech-stack {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #1e293b;
 }
 
-/* ✅ SELECTED */
-.channel-item.active {
-  background: linear-gradient(90deg, #2563eb33, #1e40af22);
-  box-shadow: inset 4px 0 0 #2563eb;
+.tech-stack h4 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #38bdf8;
 }
 
-/* 📱 MOBILE */
-@media (max-width: 768px) {
-  .app-layout {
-    flex-direction: column;
-  }
-
-  .video-container {
-    height: 55vh;
-  }
-
-  .channel-panel {
-    width: 100%;
-    height: 45vh;
-  }
+.tech-stack p {
+  font-size: 13px;
+  margin: 4px 0;
 }
