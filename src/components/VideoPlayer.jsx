@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import "../styles/player.css";
 
-export default function VideoPlayer({ channel }) {
+export default function VideoPlayer({ channel, onPrev, onNext }) {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const hideTimer = useRef(null);
@@ -30,12 +30,12 @@ export default function VideoPlayer({ channel }) {
     return () => hls && hls.destroy();
   }, [channel]);
 
-  /* ================= AUTO HIDE CONTROLS ================= */
+  /* ================= AUTO HIDE ================= */
   const startHideTimer = () => {
     clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => {
       setShowControls(false);
-    }, 3000); // 👈 3 sec
+    }, 3000);
   };
 
   const showControlsNow = () => {
@@ -70,12 +70,10 @@ export default function VideoPlayer({ channel }) {
 
   /* ================= FULLSCREEN ================= */
   const toggleFullscreen = () => {
-    const container = containerRef.current;
-
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
-      container.requestFullscreen();
+      containerRef.current.requestFullscreen();
     }
     showControlsNow();
   };
@@ -86,11 +84,26 @@ export default function VideoPlayer({ channel }) {
       className="video-box"
       onMouseMove={showControlsNow}
       onTouchStart={showControlsNow}
-      onClick={showControlsNow}
     >
       <video ref={videoRef} autoPlay />
 
-      {/* CUSTOM CONTROLS */}
+      {/* ◀ PREVIOUS */}
+      <button
+        className={`nav-arrow left ${showControls ? "show" : ""}`}
+        onClick={onPrev}
+      >
+        ❮
+      </button>
+
+      {/* ▶ NEXT */}
+      <button
+        className={`nav-arrow right ${showControls ? "show" : ""}`}
+        onClick={onNext}
+      >
+        ❯
+      </button>
+
+      {/* CONTROLS */}
       <div className={`controls ${showControls ? "show" : "hide"}`}>
         <button className="control-btn" onClick={togglePlayPause}>
           {isPlaying ? "⏸" : "▶"}
