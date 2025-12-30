@@ -66,6 +66,7 @@
 .burger {
   font-size: 26px;
   cursor: pointer;
+  color:red;
 }
 
 /* ================= MOBILE MENU ================= */
